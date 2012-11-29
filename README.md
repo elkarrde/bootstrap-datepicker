@@ -1,12 +1,16 @@
 # Home
 
-http://www.eyecon.ro/bootstrap-datepicker/
+This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
+thanks go to him for getting this thing started!
+
+Please note that this fork is not used on Stefan's page at this time, nor is it maintained or
+contributed to by him (yet?)
 
 # Example
 
 Attached to a field with the format specified via options:
 
-    <input type="text" value="02-16-2012" id="datepicker">  
+    <input type="text" value="02-16-2012" id="datepicker">
 ######
     $('#datepicker').datepicker({
         format: 'mm-dd-yyyy'
@@ -104,7 +108,7 @@ All options that take a "Date" can handle a `Date` object; a String formatted ac
 
 String.  Default: 'mm/dd/yyyy'
 
-The date format, combination of d, dd, m, mm, M, MM, yy, yyy.
+The date format, combination of d, dd, m, mm, M, MM, yy, yyyy.
 
 ### weekStart
 
@@ -136,11 +140,35 @@ Number, String.  Default: 0, 'month'
 
 The view that the datepicker should show when it is opened.  Accepts values of 0 or 'month' for month view (the default), 1 or 'year' for the 12-month overview, and 2 or 'decade' for the 10-year overview.  Useful for date-of-birth datepickers.
 
+### todayBtn
+
+Boolean, "linked".  Default: false
+
+If true or "linked", displays a "Today" button at the bottom of the datepicker to select the current date.  If true, the "Today" button will only move the current date into view; if "linked", the current date will also be selected.
+
+### todayHighlight
+
+Boolean.  Default: false
+
+If true, highlights the current date.
+
+### keyboardNavigation
+
+Boolean.  Default: true
+
+Whether or not to allow date navigation by arrow keys.
+
 ### language
 
 String.  Default: 'en'
 
 The two-letter code of the language to use for month and day names.  These will also be used as the input's value (and subsequently sent to the server in the case of form submissions).  Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below).  If an unknown language code is given, English will be used.
+
+### forceParse
+
+Boolean.  Default: true
+
+Whether or not to force parsing of the input value when the picker is closed.  That is, when an invalid date is left in the input field by the user, the picker will forcibly parse that value, and set the input's value to the new, valid date, conforming to the given `format`.
 
 ## Markup
 
@@ -156,6 +184,15 @@ Format a component.
 ### .datepicker(options)
 
 Initializes an datepicker.
+
+### remove
+
+Arguments: None
+
+Remove the datepicker.  Removes attached events, internal attached objects, and
+added HTML elements.
+
+    $('#datepicker').datepicker('remove');
 
 ### show
 
@@ -235,6 +272,14 @@ Fired when the date is changed.
             }
         });
 
+### changeYear
+
+Fired when the *view* year is changed from decade view.
+
+### changeMonth
+
+Fired when the *view* month is changed from year view.
+
 ## Keyboard support
 
 The datepicker includes some keyboard navigation:
@@ -266,7 +311,8 @@ The plugin supports i18n for the month and weekday names and the `weekStart` opt
         daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
         months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        today: "Today"
     };
 
 If your browser (or those of your users) is displaying characters wrong, chances are the browser is loading the javascript file with a non-unicode encoding.  Simply add `charset="UTF-8"` to your `script` tag:
