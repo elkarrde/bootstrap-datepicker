@@ -24,6 +24,22 @@ test('dd: Day of month, leading zero.', function(){
     equal(this.input.val().split('-')[2], '05');
 });
 
+test('D: Day of week, short.', function(){
+    this.input
+        .val('2012-03-05')
+        .datepicker({format: 'yyyy-mm-dd-D'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[3], 'Mon');
+});
+
+test('DD: Day of week, long.', function(){
+    this.input
+        .val('2012-03-05')
+        .datepicker({format: 'yyyy-mm-dd-DD'})
+        .datepicker('setValue');
+    equal(this.input.val().split('-')[3], 'Monday');
+});
+
 test('m: Month, no leading zero.', function(){
     this.input
         .val('2012-03-05')
@@ -207,4 +223,13 @@ test('Invalid formats are force-parsed into a valid date on tab', patch_date(fun
     });
 
     equal(this.input.val(), '56-September-30');
+}));
+
+test('Trailing separators', patch_date(function(Date){
+    Date.now = UTCDate(2012, 4, 31);
+    this.input
+        .val('29.02.2012.')
+        .datepicker({format: 'dd.mm.yyyy.'})
+        .datepicker('setValue');
+    equal(this.input.val(), '29.02.2012.');
 }));
